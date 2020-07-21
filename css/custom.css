@@ -2,6 +2,59 @@
     font-family: 'Noto';
     src: url('../resources/fonts/NotoSansBengali-Light.ttf')  format('truetype');
 }
-p{
-    font-family: Noto, Arial, Helvetica, sans-serif;
+@font-face {
+    font-family: 'Noto Regular';
+    src: url('../resources/fonts/NotoSansBengali-Regular.ttf')  format('truetype');
+}
+
+/* *{font-family: 'Noto Regular', Arial, Helvetica, sans-serif;} */
+*{font-family: 'Noto', Arial, Helvetica, sans-serif;}
+
+/* Edit Bootstrap */
+.card-header{
+    background-color: #1398b2;
+}
+.btn-link,
+.btn-link:hover,
+.btn-link:focus{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color:lightyellow;
+}
+.btn-link:after{
+	font-family: 'Font Awesome 5 pro';
+	font-weight: 900;
+	font-size:0.8rem;
+	margin-top:3px;
+	content:"\f056";
+	float:right;
+
+}
+.collapsed:after{
+	font-family: 'Font Awesome 5 pro';
+	font-weight: 900;
+	font-size:0.8rem;
+	margin-top:3px;
+	content: "\f055";
+	float:right;
+}
+/* End of Edit Bootstrap */
+.left-menu{
+    background-color: #9caebb;
+}
+body{background-color: #d1e9ee}
+
+
+
+.menu-list{
+    border-bottom:1px dotted #000000;
+}
+.menu-list>a,
+.menu-list>a:hover{
+    display: block;
+    background-color: #d1e9ee;
+    padding:0.5rem;
+    color:black;
+    text-decoration: none;
 }

@@ -15,7 +15,7 @@ class db{
     }
 
     private function __construct(){
-        $dsn = "mysql:dbname=".config::configGet('mysql/dbName').";host=".config::configGet('mysql/dbHost');
+        $dsn = "mysql:dbname=".config::configGet('mysql/dbName').";host=".config::configGet('mysql/dbHost').";charset=utf8mb4";
         try{
             $this->_pdo = new PDO($dsn,config::configGet('mysql/dbUser'),config::configGet('mysql/dbPass'));
         }catch (PDOException $e) {
