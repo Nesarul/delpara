@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Noto';
+    src: url('../resources/fonts/NotoSansBengali-Light.ttf')  format('truetype');
+}
+p{
+    font-family: Noto, Arial, Helvetica, sans-serif;
+}
