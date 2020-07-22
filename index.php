@@ -64,8 +64,9 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php foreach($rec as $key => $value) : ?>
+                                    <?php $noRows = db::getInstance()->query("SELECT * FROM bukhari WHERE chapter = ?",$params = array($value->id))->getCounts();?>
                                     <li class="menu-list">
-                                        <a href=""><?php echo "$value->name"; ?></a>
+                                        <a href="./categories.php?cat=<?php echo $value->id; ?>&amp;chap=<?php echo $value->name; ?>"><?php echo "$value->name"; ?><span class="badge badge-dark"><?php echo $noRows; ?></span></a>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>

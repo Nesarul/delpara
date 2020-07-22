@@ -42,4 +42,7 @@ class db{
     public function getResults(){
         return $this->_results;
     }
+    public function getCounts(){
+        return $this->_counts;
+    }
 }
