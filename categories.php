@@ -1,6 +1,6 @@
 <?php
     require_once('./inc/header.php');
-    require_once('./admin/db/db.php');
+    // require_once('./admin/db/db.php');
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -46,51 +46,112 @@
         </div>
     </div>
 </div>
-<?php $rec = db::getInstance()->query("SELECT * FROM bukhari WHERE chapter=?",$params = array($_GET['cat']))->getResults(); ?>
+
+<?php 
+    // $rec = db::getInstance()->query("SELECT * FROM bukhari WHERE chapter=?",$params = array($_GET['cat']))->getResults(); 
+    
+    if(isset($_GET['book']) && isset($_GET['section'])){
+        $conn_string = './admin/db/books/'.$_GET['book'].'.db';
+        $section = $_GET['section'];
+    }
+    else
+        return;
+    
+    $sql = "
+    SELECT 
+    a.c0hadithBengali       as bn,
+    a.c2hadithArabic        as ar,
+    a.c12chapter_bn         as cbn,
+    a.c13chapter_ar         as car,
+    a.c4note                as note,
+    a.c5rabiNameBangla      as rabi,
+    b.hadithNo              as hno,
+    a.c14bn_explanation     as exp,
+    b.id                    as id,
+    b.sectionId             as sid 
+    
+    FROM
+    content_fts_content     as a 
+    
+    LEFT JOIN 
+    content                 as b 
+    on 
+    b.id = a.docid 
+    
+    WHERE 
+    b.sectionId = :section;
+    ";
+    $connection = new SQLite3('./admin/db/books/hb_1.db');
+    if($connection) {
+        // $sql = "SELECT id,nameBengali,hadith_number FROM section";
+        
+        $stmt = $connection->prepare($sql);
+        $stmt->bindValue(':section', $section, SQLITE3_INTEGER);
+        $rs = $stmt->execute();
+    } 
+?>
+
+
 <div class="container">
     <div class="row">
         <div class="col-12 my-5">
-            <h2 class="text-center"><?php echo $_GET['chap']; ?></h2>
+            <h2 class="text-center">
+                <?php 
+                    // echo $_GET['chap']; 
+                ?>
+            </h2>
+            <h2 class="text-center">Dear Bangladesh</h2>
         </div>
         
         <div class="col-12">
-            <?php foreach($rec as $key => $value): ?>
+           
+            <?php while($row = $rs->fetchArray(SQLITE3_ASSOC)): ?>
             <div class="row content-bg my-3">
-                <div class="col-12 p-0"><p class="hadith-no"><?php echo $value->no; ?></p></div>
+                <div class="col-12 p-0"><p class="hadith-no"><?php echo $row['id']; ?></p></div>
                 
                 <div class="col-sm-12 col-md-6 py-3">
-                    <p class="arabic h-info mb-3" style="font-size:1.25rem"><?php echo $value->h_info_arabic_title; ?></p>
-                    <p class="arabic"><?php echo nl2br($value->arabic); ?></p>
+                    <p class="arabic h-info mb-3" style="font-size:1.25rem">
+                        <?php 
+                            if($row['car'] != "")
+                                echo $row['car'];
+                            else
+                                echo "باب";
+                        ?>
+                    </p>
+                    <p class="arabic"><?php echo nl2br($row['ar']); ?></p>
                 </div>
-                <div class="col-sm-12 col-md-6 py-3">
-                    <p class="bengali h-info mb-3"><?php echo nl2br($value->h_info_bangla_title); ?></p>
-                    <?php if($value->h_info_bangla != ""): ?>
-                        <p class="bengali h-info-chap"><?php echo nl2br($value->h_info_bangla); ?></p>
-                    <?php else: endif; ?>
+                
+                <div class="col-sm-12 col-md-6 py-3 bn">
+                    <p class="bengali h-info mb-3"><?php echo $row['cbn']; ?></p>
+                    
+                    <?php echo htmlspecialchars_decode($row['bn'],ENT_HTML5); ?>    
 
-                    <p class="bengali"><?php echo nl2br($value->bengali); ?></p>
-
-                    <?php if($value->notes != ""): ?>
+                    <?php if($row['note'] != ""): ?>
                         <div class="sec-note">
-                            <!-- <p class="bengali">Notes:</p> -->
-                            <p class="bengali"><?php echo nl2br($value->notes); ?></p>
+                            <p class="bengali"><?php echo $row['note']; ?></p>
                         </div>
                         
                     <?php else: endif; ?>
                 </div>
-                <?php if($value->explanation != ""): ?>
+                <?php if($row['exp'] != ""): ?>
                     <div class="exp">
                         <div class="col-12">
-                            <p class = "bengali"><?php echo nl2br($value->explanation); ?></p>
+                            <?php echo htmlspecialchars_decode($row['exp'],ENT_HTML5); ?>
                         </div>
                     </div>
                 <?php else: endif; ?>
             </div>
-            <?php endforeach; ?>
+                <?php endwhile; ?>
         </div>
         
     </div>
-</div>       
+</div>     
+
+<script>
+    $('hr').prevUntil('.h-info').css({'color':'#145A32','font-size':'1.20rem'});
+</script>
+
+
 <?php
     require_once('./inc/footer.php');
 ?>

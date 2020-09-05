@@ -1,6 +1,5 @@
 <?php
     require_once('./inc/header.php');
-    require_once('./admin/db/db.php');
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -46,10 +45,19 @@
         </div>
     </div>
 </div>
-<?php $rec = db::getInstance()->query("SELECT * FROM category")->getResults(); ?>
+
+
+<?php 
+    /* $rec = db::getInstance()->query("SELECT * FROM category")->getResults(); */
+   
+?>
+
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-sm-4 col-12 py-3 left-menu">
+    <div class="row left-menu">
+        <div class="col-sm-6 col-12 py-3">
+            <h2 class="bengali" style="font-size:2.0rem">হাদীস গ্রন্থ সমূহ</h2>
             <div class="accordion" id="bukhari">
                 <div class="card">
                     <div class="card-header" id="headingBukhari">
@@ -63,83 +71,155 @@
                     <div id="collapseBukhari" class="collapse" aria-labelledby="headingBukhari" data-parent="#bukhari">
                         <div class="card-body">
                             <ul class="list-unstyled">
-                                <?php foreach($rec as $key => $value) : ?>
-                                    <?php $noRows = db::getInstance()->query("SELECT * FROM bukhari WHERE chapter = ?",$params = array($value->id))->getCounts();?>
+                                <?php  
+                                    $connection = new SQLite3('./admin/db/books/hb_1.db');
+                                    if($connection) {
+                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
+                                        $rs = $connection->query($sql);
+                                    } 
+                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                ?>
                                     <li class="menu-list">
-                                        <a href="./categories.php?cat=<?php echo $value->id; ?>&amp;chap=<?php echo $value->name; ?>"><?php echo "$value->name"; ?><span class="badge badge-dark"><?php echo $noRows; ?></span></a>
+                                        <a href="./categories.php?book=1&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
                                     </li>
-                                <?php endforeach; ?>
+                                <?php endwhile;?>
                             </ul>
                         </div>
                     </div>
                 </div>
+        
                 <div class="card">
-                    <div class="card-header" id="headingTwo">
+                    <div class="card-header" id="headingMuslim">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseMuslim" aria-expanded="false" aria-controls="collapseMuslim">
                                 সহীহ মুসলিম
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <div id="collapseMuslim" class="collapse" aria-labelledby="headingMuslim" data-parent="#bukhari">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $connection = new SQLite3('./admin/db/books/hb_2.db');
+                                    if($connection) {
+                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
+                                        $rs = $connection->query($sql);
+                                    } 
+                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                ?>
+                                    <li class="menu-list">
+                                        <a href="./categories.php?book=2&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
+                                    </li>
+                                <?php endwhile;?>
+                            </ul>                            
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header" id="headingThree">
+                    <div class="card-header" id="headingTirmijee">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTirmijee" aria-expanded="false" aria-controls="collapseTirmijee">
                                 জামি' আত তিরমিজি
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div id="collapseTirmijee" class="collapse" aria-labelledby="headingTirmijee" data-parent="#bukhari">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $connection = new SQLite3('./admin/db/books/hb_11.db');
+                                    if($connection) {
+                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
+                                        $rs = $connection->query($sql);
+                                    } 
+                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                ?>
+                                    <li class="menu-list">
+                                        <a href="./categories.php?book=11&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
+                                    </li>
+                                <?php endwhile;?>
+                            </ul> 
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header" id="headingThree">
+                    <div class="card-header" id="headingAbuDaud">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseAbuDaud" aria-expanded="false" aria-controls="collapseAbuDaud">
                                 সুনানে আবু দাউদ
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div id="collapseAbuDaud" class="collapse" aria-labelledby="headingAbuDaud" data-parent="#bukhari">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $connection = new SQLite3('./admin/db/books/hb_4.db');
+                                    if($connection) {
+                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
+                                        $rs = $connection->query($sql);
+                                    } 
+                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                ?>
+                                    <li class="menu-list">
+                                        <a href="./categories.php?book=4&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
+                                    </li>
+                                <?php endwhile;?>
+                            </ul> 
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header" id="headingThree">
+                    <div class="card-header" id="headingNasaai">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseNasaai" aria-expanded="false" aria-controls="collapseNasaai">
                                 সুনানে নাসাই
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div id="collapseNasaai" class="collapse" aria-labelledby="headingNasaai" data-parent="#bukhari">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $connection = new SQLite3('./admin/db/books/hb_6.db');
+                                    if($connection) {
+                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
+                                        $rs = $connection->query($sql);
+                                    } 
+                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                ?>
+                                    <li class="menu-list">
+                                        <a href="./categories.php?book=6&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
+                                    </li>
+                                <?php endwhile;?>
+                            </ul> 
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header" id="headingThree">
+                    <div class="card-header" id="headingMajah">
                         <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseMajah" aria-expanded="false" aria-controls="collapseMajah">
                                 সুনানে ইবনে মাজাহ
                             </button>
                         </h2>
                     </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                    <div id="collapseMajah" class="collapse" aria-labelledby="headingMajah" data-parent="#bukhari">
                         <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $connection = new SQLite3('./admin/db/books/hb_9.db');
+                                    if($connection) {
+                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
+                                        $rs = $connection->query($sql);
+                                    } 
+                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                ?>
+                                    <li class="menu-list">
+                                        <a href="./categories.php?book=9&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
+                                    </li>
+                                <?php endwhile;?>
+                            </ul> 
                         </div>
                     </div>
                 </div>
@@ -147,11 +227,29 @@
             
         
         </div>
-        <div class="col-sm-8 col-12 py-3 right-part">
-
+        <div class="col-sm-6 col-12 py-3 right-part">
+            <h2 class="bengali" style="font-size:2.0rem">কুরআনুল কারীম </h2>
+            <ul class="list-unstyled">
+                <?php  
+                    $connection = new SQLite3('./admin/db/quran/sna.db');
+                    if($connection) {
+                        $sql = "SELECT surahId,surahName,surahTotalAyaat FROM surah";
+                        $rs = $connection->query($sql);
+                    } 
+                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                ?>
+                    <li class="menu-list">
+                        <?php  ?>
+                        <a href="./quran.php?chap=<?php echo $row['surahId']; ?>" style="font-family:'alqalam', Arial, Helvetica, sans-serif"><?php echo $row['surahId']." - ".$row['surahName'] ?> <span class="badge badge-dark"><?php echo $row['surahTotalAyaat'] ?></span></a>
+                    </li>
+                <?php endwhile;?>
+            </ul>
+            
         </div>
     </div>
-</div>       
+</div>     
+
+
 <?php
     require_once('./inc/footer.php');
 ?>
