@@ -1,5 +1,6 @@
 <?php
     require_once('./inc/header.php');
+    require_once('./admin/db/db.php');
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -48,8 +49,7 @@
 
 
 <?php 
-    /* $rec = db::getInstance()->query("SELECT * FROM category")->getResults(); */
-   
+    $rec = db::getInstance()->query("SELECT * FROM category")->getResults();
 ?>
 
 
@@ -72,17 +72,7 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php  
-                                    $connection = new SQLite3('./admin/db/books/hb_1.db');
-                                    if($connection) {
-                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
-                                        $rs = $connection->query($sql);
-                                    } 
-                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
                                 ?>
-                                    <li class="menu-list">
-                                        <a href="./categories.php?book=1&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
-                                    </li>
-                                <?php endwhile;?>
                             </ul>
                         </div>
                     </div>
