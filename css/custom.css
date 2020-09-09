@@ -1,11 +1,4 @@
 @font-face {
-    font-family: 'alqalam';
-    src: url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.eot'); /* IE9 Compat Modes */
-    src: url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.woff') format('woff'), /* Pretty Modern Browsers */
-         url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.ttf')  format('truetype'); /* Safari, Android, iOS */
-  }
-@font-face {
     font-family: 'kalpurush';
     src: url('../resources/fonts/kalpurush/Kalpurush.eot'); /* IE9 Compat Modes */
     src: url('../resources/fonts/kalpurush/Kalpurush.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -15,30 +8,24 @@
   }
 @font-face {
     font-family: 'kalpurush';
-    src: url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.eot'); /* IE9 Compat Modes */
-    src: url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-         url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.woff') format('woff'), /* Pretty Modern Browsers */
-         url('../resources/fonts/alqalam/AlQalamQuranMajeedWeb2.ttf')  format('truetype'); /* Safari, Android, iOS */
+    src: url("../resources/fonts/quran/web2_b.otf"),
+         url("../resources/fonts/quran/web2_b.ttf") format("opentype");
          unicode-range: U+0600-06ff;
   }
 
-body{background-color: #d1e9ee;font-family: 'kalpurush', Arial, Helvetica, sans-serif;font-size:1.25rem;}
+@font-face {
+    font-family:web2_b;
+    src: url("../resources/fonts/quran/web2_b.otf"),
+         url("../resources/fonts/quran/web2_b.ttf") format("opentype");
+}
+  
 
 .arabic{
-    font-family: 'alqalam', Arial, Helvetica, sans-serif;
-    font-size: 1.5rem;
+    font-family: 'web2_b', Arial, Helvetica, sans-serif;
+    font-size: 2.0rem;
     direction: rtl;
     text-align: right;
 }
-span.arabic{
-    display:block;
-    margin-bottom:0.5rem;
-    font-family: 'alqalam', Arial, Helvetica, sans-serif;
-    font-size: 2.5rem;
-    direction: rtl;
-    text-align: center;
-}
-
 .bengali{
     font-family: 'kalpurush', Arial, Helvetica, sans-serif;
     font-size: 1.25rem;
@@ -93,6 +80,10 @@ span.arabic{
 .content-bg{
     background-color: #ffffff;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+}
+.q-content{
+    background-color:#009B77;
+    color:#ffffff;
 }
 p.h-info{
     background-color: #284b63;

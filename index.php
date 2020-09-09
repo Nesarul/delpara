@@ -207,18 +207,13 @@
             <h2 class="bengali" style="font-size:2.0rem">কুরআনুল কারীম </h2>
             <ul class="list-unstyled">
                 <?php  
-                    $connection = new SQLite3('./admin/db/quran/sna.db');
-                    if($connection) {
-                        $sql = "SELECT surahId,surahName,surahTotalAyaat FROM surah";
-                        $rs = $connection->query($sql);
-                    } 
-                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                    $rec = db::getInstance()->query("SELECT surahid, surahname, surahplace,surahtotalayaat FROM q_surah")->getResults();
+                    foreach($rec as $key => $row):
                 ?>
-                    <li class="menu-list">
-                        <?php  ?>
-                        <a href="./quran.php?chap=<?php echo $row['surahId']; ?>" style="font-family:'alqalam', Arial, Helvetica, sans-serif"><?php echo $row['surahId']." - ".$row['surahName'] ?> <span class="badge badge-dark"><?php echo $row['surahTotalAyaat'] ?></span></a>
-                    </li>
-                <?php endwhile;?>
+                <li class="menu-list">
+                    <a href="./quran.php?surah=<?php echo $row->surahid; ?>"><?php echo $row->surahname; ?> <span class="badge badge-dark"><?php echo $row->surahtotalayaat; ?></span></a>
+                </li>
+                <?php endforeach ?>
             </ul>
             
         </div>
