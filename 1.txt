@@ -1,0 +1,17 @@
+CREATE VIEW bukhari_main AS	
+SELECT 
+docid,
+c0hadithBengali,
+c1hadithEnglish,
+c2hadithArabic,
+c4note,
+c5rabiNameBangla,
+c6rabiNameEnglish,
+c8publisherNameBangla,
+c11chapter_en,
+c12chapter_bn,
+c13chapter_ar,
+c14bn_explanation,
+content.sectionId,
+content.hadithNo
+FROM content_fts_content LEFT JOIN content on content.id = content_fts_content.docid

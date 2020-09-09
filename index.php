@@ -1,5 +1,5 @@
 <?php
-    require_once('./inc/header.php');
+    require_once('./inc/header_bn.php');
     require_once('./admin/db/db.php');
 ?>
 <div class="container-fluid">
@@ -49,7 +49,7 @@
 
 
 <?php 
-    $rec = db::getInstance()->query("SELECT * FROM category")->getResults();
+    // $rec = db::getInstance()->query("SELECT * FROM book_1")->getResults();
 ?>
 
 
@@ -72,7 +72,13 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php  
+                                    $rec = db::getInstance()->query("SELECT sec_id, name_bn,hadith_number FROM section_1")->getResults();
+                                    foreach($rec as $key => $row):
                                 ?>
+                                 <li class="menu-list">
+                                    <a href="./categories.php?book=1&amp;section=<?php echo $row->sec_id; ?>"><?php echo $row->name_bn; ?> <span class="badge badge-dark"><?php echo $row->hadith_number; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
                             </ul>
                         </div>
                     </div>
@@ -90,17 +96,13 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php  
-                                    $connection = new SQLite3('./admin/db/books/hb_2.db');
-                                    if($connection) {
-                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
-                                        $rs = $connection->query($sql);
-                                    } 
-                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                    $rec = db::getInstance()->query("SELECT sec_id, name_bn,hadith_number FROM section_2")->getResults();
+                                    foreach($rec as $key => $row):
                                 ?>
-                                    <li class="menu-list">
-                                        <a href="./categories.php?book=2&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
-                                    </li>
-                                <?php endwhile;?>
+                                 <li class="menu-list">
+                                    <a href="./categories.php?book=2&amp;section=<?php echo $row->sec_id; ?>"><?php echo $row->name_bn; ?> <span class="badge badge-dark"><?php echo $row->hadith_number; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
                             </ul>                            
                         </div>
                     </div>
@@ -117,17 +119,13 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php  
-                                    $connection = new SQLite3('./admin/db/books/hb_11.db');
-                                    if($connection) {
-                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
-                                        $rs = $connection->query($sql);
-                                    } 
-                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                    $rec = db::getInstance()->query("SELECT sec_id, name_bn,hadith_number FROM section_11")->getResults();
+                                    foreach($rec as $key => $row):
                                 ?>
-                                    <li class="menu-list">
-                                        <a href="./categories.php?book=11&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
-                                    </li>
-                                <?php endwhile;?>
+                                 <li class="menu-list">
+                                    <a href="./categories.php?book=11&amp;section=<?php echo $row->sec_id; ?>"><?php echo $row->name_bn; ?> <span class="badge badge-dark"><?php echo $row->hadith_number; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
                             </ul> 
                         </div>
                     </div>
@@ -144,17 +142,13 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php  
-                                    $connection = new SQLite3('./admin/db/books/hb_4.db');
-                                    if($connection) {
-                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
-                                        $rs = $connection->query($sql);
-                                    } 
-                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                    $rec = db::getInstance()->query("SELECT sec_id, name_bn,hadith_number FROM section_4")->getResults();
+                                    foreach($rec as $key => $row):
                                 ?>
-                                    <li class="menu-list">
-                                        <a href="./categories.php?book=4&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
-                                    </li>
-                                <?php endwhile;?>
+                                 <li class="menu-list">
+                                    <a href="./categories.php?book=4&amp;section=<?php echo $row->sec_id; ?>"><?php echo $row->name_bn; ?> <span class="badge badge-dark"><?php echo $row->hadith_number; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
                             </ul> 
                         </div>
                     </div>
@@ -171,17 +165,13 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php  
-                                    $connection = new SQLite3('./admin/db/books/hb_6.db');
-                                    if($connection) {
-                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
-                                        $rs = $connection->query($sql);
-                                    } 
-                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                    $rec = db::getInstance()->query("SELECT sec_id, name_bn,hadith_number FROM section_6")->getResults();
+                                    foreach($rec as $key => $row):
                                 ?>
-                                    <li class="menu-list">
-                                        <a href="./categories.php?book=6&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
-                                    </li>
-                                <?php endwhile;?>
+                                 <li class="menu-list">
+                                    <a href="./categories.php?book=6&amp;section=<?php echo $row->sec_id; ?>"><?php echo $row->name_bn; ?> <span class="badge badge-dark"><?php echo $row->hadith_number; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
                             </ul> 
                         </div>
                     </div>
@@ -198,17 +188,13 @@
                         <div class="card-body">
                             <ul class="list-unstyled">
                                 <?php  
-                                    $connection = new SQLite3('./admin/db/books/hb_9.db');
-                                    if($connection) {
-                                        $sql = "SELECT id,nameBengali,hadith_number FROM section";
-                                        $rs = $connection->query($sql);
-                                    } 
-                                    while($row = $rs->fetchArray(SQLITE3_ASSOC)): 
+                                    $rec = db::getInstance()->query("SELECT sec_id, name_bn,hadith_number FROM section_9")->getResults();
+                                    foreach($rec as $key => $row):
                                 ?>
-                                    <li class="menu-list">
-                                        <a href="./categories.php?book=9&amp;section=<?php echo $row['id'] ?>"><?php echo $row['nameBengali'] ?> <span class="badge badge-dark"><?php echo $row['hadith_number'] ?></span></a>
-                                    </li>
-                                <?php endwhile;?>
+                                 <li class="menu-list">
+                                    <a href="./categories.php?book=9&amp;section=<?php echo $row->sec_id; ?>"><?php echo $row->name_bn; ?> <span class="badge badge-dark"><?php echo $row->hadith_number; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
                             </ul> 
                         </div>
                     </div>
