@@ -56,7 +56,7 @@
 
 <div class="container">
     <div class="row left-menu">
-        <div class="col-sm-6 col-12 py-3">
+        <div class="col-sm-4 col-12 py-3">
             <h2 class="bengali" style="font-size:2.0rem">হাদীস গ্রন্থ সমূহ</h2>
             <div class="accordion" id="bukhari">
                 <div class="card">
@@ -203,20 +203,103 @@
             
         
         </div>
-        <div class="col-sm-6 col-12 py-3 right-part">
+        <div class="col-sm-4 col-12 py-3 right-part">
             <h2 class="bengali" style="font-size:2.0rem">কুরআনুল কারীম </h2>
-            <ul class="list-unstyled">
-                <?php  
-                    $rec = db::getInstance()->query("SELECT surahid, surahname, surahplace,surahtotalayaat FROM q_surah")->getResults();
-                    foreach($rec as $key => $row):
-                ?>
-                <li class="menu-list">
-                    <a href="./quran.php?surah=<?php echo $row->surahid; ?>"><?php echo $row->surahname; ?> <span class="badge badge-dark"><?php echo $row->surahtotalayaat; ?></span></a>
-                </li>
-                <?php endforeach ?>
-            </ul>
-            
+            <div style="max-height:300px;overflow:scroll">
+                <ul class="list-unstyled" >
+                    <?php  
+                        $rec = db::getInstance()->query("SELECT surahid, surahname, surahplace,surahtotalayaat FROM q_surah")->getResults();
+                        foreach($rec as $key => $row):
+                    ?>
+                    <li class="menu-list">
+                        <a href="./quran.php?surah=<?php echo $row->surahid; ?>"><span class="arabic"><?php echo $row->surahname; ?></span></a>
+                    </li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
         </div>
+
+
+        <div class="col-sm-4 col-12 py-3 right-part">
+            <h2 class="bengali" style="font-size:2.0rem">তাফসীর </h2>
+            <div class="accordion" id="tafseer">
+                <div class="card">
+                    <div class="card-header" id="katheer">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapsekatheer" aria-expanded="true" aria-controls="collapsekatheer">
+                                তাফসীর ইবনে কাছির
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapsekatheer" class="collapse" aria-labelledby="katheer" data-parent="#tafseer">
+                        <div class="card-body" style="max-height:300px; overflow-y:scroll">
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $rec = db::getInstance()->query("SELECT surahid, surahname, surahplace,surahtotalayaat FROM q_surah")->getResults();
+                                    foreach($rec as $key => $row):
+                                ?>
+                                <li class="menu-list">
+                                    <a href="./tafsir.php?surah=<?php echo $row->surahid; ?>&amp;tid=1"><span class="arabic"><?php echo $row->surahid." - ".$row->surahname; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="fmazid">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapsefmazid" aria-expanded="true" aria-controls="collapsefmazid">
+                            তাফসীর ফাতহুল মাজিদ
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapsefmazid" class="collapse" aria-labelledby="fmazid" data-parent="#tafseer">
+                        <div class="card-body"  style="max-height:300px; overflow-y:scroll">
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $rec = db::getInstance()->query("SELECT surahid, surahname, surahplace,surahtotalayaat FROM q_surah")->getResults();
+                                    foreach($rec as $key => $row):
+                                ?>
+                                <li class="menu-list">
+                                    <a href="./quran.php?surah=<?php echo $row->surahid; ?>"><span class="arabic"><?php echo $row->surahname; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="zakariya">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapsezakariya" aria-expanded="true" aria-controls="collapsezakariya">
+                            তাফসীর জাকারিয়্যা
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapsezakariya" class="collapse" aria-labelledby="zakariya" data-parent="#tafseer">
+                        <div class="card-body" style="max-height:300px; overflow-y:scroll">
+                            <ul class="list-unstyled">
+                                <?php  
+                                    $rec = db::getInstance()->query("SELECT surahid, surahname, surahplace,surahtotalayaat FROM q_surah")->getResults();
+                                    foreach($rec as $key => $row):
+                                ?>
+                                <li class="menu-list">
+                                    <a href="./quran.php?surah=<?php echo $row->surahid; ?>"><span class="arabic"><?php echo $row->surahname; ?></span></a>
+                                </li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>     
 

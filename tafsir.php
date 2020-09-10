@@ -1,5 +1,5 @@
 <?php
-    require_once('./inc/header.php');
+    require_once('./inc/header_bn.php');
     require_once('./admin/db/db.php');
 ?>
 <div class="container-fluid">
@@ -50,51 +50,27 @@
 <?php 
     // $rec = db::getInstance()->query("SELECT * FROM bukhari WHERE chapter=?",$params = array($_GET['cat']))->getResults(); 
     
-    if(isset($_GET['surah'])){
+    if(isset($_GET['surah']) && $_GET['tid']){
         $surah_id = $_GET['surah'];
+        $tafsir = $_GET['tid'];
     }
     else
         return;
-    $rec = db::getInstance()->query("SELECT * FROM q_surah WHERE surahid=?",$param = array($surah_id))->getResults();
+    $tafsir_ar = [1 => 'ibn_kathir','fathul_mazid','zakariya'];
+    $rec = db::getInstance()->query("SELECT * FROM ".$tafsir_ar[$tafsir]." WHERE chapter=?",$param = array($surah_id))->getResults();
 ?>
 
 
 <div class="container">
     <div class="row">
-        <div class="col-12 my-2">
-            <style>
-                .info{
-                    padding:15px;
-                    background-color: #A9A9A9;
-                    color:black;
-                }
-            </style>
-            <div class="info">
-                <p dir=ltr> 
-                    <?php
-                        echo 
-                        "Name : ". $rec[0]->surahname."<br/>
-                        Place : ". $rec[0]->surahplace."<br/>
-                        Ayaat : ". $rec[0]->surahtotalayaat."<br/>
-                        Ruku : ". $rec[0]->surahtotalruku."<br/>
-                        Manzil : ". $rec[0]->surahmanzil."<br/>
-                        Para : ". $rec[0]->surahparaid."<br/>
-                        Words: ". $rec[0]->total_words."<br/>
-                        Letters: ". $rec[0]->total_letters."<br/>";
-                    ?>
-                </p>
-            </div>
-            
-        </div>
-        
         <div class="col-12">
             <div class="q-content p-3">
                 <?php 
-                    $rec = db::getInstance()->query("SELECT * FROM quran WHERE ch_id=? ORDER BY ay_no ASC",$param = array($surah_id))->getResults();
                     foreach($rec as $key => $row):
                 ?>
-                <p class="arabic"><?php echo $row->txt_ar; ?></p>
-                <p class="bengali"><?php echo $row->taisirul; ?></p>
+                <p class="arabic"><?php echo $row->ar; ?></p>
+                <p class="bengali"><?php echo $row->bn_kaseer; ?></p>
+                <p class="bengali"><?php echo nl2br($row->kaseer_bn); ?></p>
                 <?php endforeach; ?>
             </div>
         </div> 
