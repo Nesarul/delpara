@@ -57,25 +57,39 @@
     else
         return;
     $tafsir_ar = [1 => 'ibn_kathir','fathul_mazid','zakariya'];
-    $rec = db::getInstance()->query("SELECT * FROM ".$tafsir_ar[$tafsir]." WHERE chapter=?",$param = array($surah_id))->getResults();
+    $rec = db::getInstance()->query("SELECT * FROM ".$tafsir_ar[$tafsir]." WHERE chapter=? limit 20",$param = array($surah_id))->getResults();
 ?>
-
-
-<div class="container">
+<?php
+    $file = 'resources/ibn_kathir/p1.pdf';
+    $filename = 'resources/ibn_kathir/p1.pdf';
+    header("Content-type: application/pdf"); 
+    header('Content-disposition: inline; filename="'.$filename.'"');
+    header('Content-Transfer-Encoding:binary');
+    header('Accpt-Ranges: bytes');
+    @readfile($file);
+    // header("Content-Length: " . filesize ('resources/ibn_kathir/p1.pdf' ) ); 
+    // header("Content-type: application/pdf"); 
+    // header("Content-disposition: attachment; 
+    // filename=".basename('theme/assets/pdf/ci.pdf'));
+    // header("Content-disposition: inline;
+    // filename=".basename('resources/ibn_kathir/p1.pdf'));
+    // header('Expires: 0');
+    // header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    // $filepath = readfile('resources/ibn_kathir/p1.pdf');
+?>
+<!-- <div class="container">
     <div class="row">
         <div class="col-12">
             <div class="q-content p-3">
-                <?php 
-                    foreach($rec as $key => $row):
-                ?>
-                <p class="arabic"><?php echo $row->ar; ?></p>
-                <p class="bengali"><?php echo $row->bn_kaseer; ?></p>
-                <p class="bengali"><?php echo nl2br($row->kaseer_bn); ?></p>
-                <?php endforeach; ?>
+                ?php foreach($rec as $key => $row):?>
+                <p class="arabic">?php echo $row->ar; ?></p>
+                <p class="bengali">?php echo $row->bn_kaseer; ?></p>
+                <p class="bengali">?php echo nl2br($row->kaseer_bn); ?></p>
+                ?php endforeach; ?>
             </div>
         </div> 
     </div>
-</div>     
+</div>      -->
 
 <?php
     require_once('./inc/footer.php');
